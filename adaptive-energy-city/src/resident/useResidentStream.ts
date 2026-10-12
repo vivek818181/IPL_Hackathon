@@ -50,6 +50,7 @@ export function useResidentStream(residentId: string | null) {
   const esRef = useRef<EventSource | null>(null);
   const reconnectTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const seenAlerts = useRef<Set<string>>(new Set());
+  const connectRef = useRef<() => void>(() => {});
 
   const connect = useCallback(() => {
     if (!residentId) return;
@@ -82,9 +83,15 @@ export function useResidentStream(residentId: string | null) {
       setConnected(false); setBackendOnline(false);
       setStreamError('Stream disconnected — reconnecting in 8s…');
       es.close();
-      reconnectTimer.current = setTimeout(connect, 8000);
+      reconnectTimer.current = setTimeout(() => {
+        connectRef.current();
+      }, 8000);
     };
   }, [residentId]);
+
+  useEffect(() => {
+    connectRef.current = connect;
+  }, [connect]);
 
   // Also poll forecast separately (richer data than snapshot)
   const pollForecast = useCallback(async () => {
@@ -100,14 +107,25 @@ export function useResidentStream(residentId: string | null) {
 
   useEffect(() => {
     connect();
-    pollForecast();
+    let isCancelled = false;
+    if (residentId) {
+      fetch(`${API}/api/resident/${residentId}/forecast`)
+        .then(r => r.ok ? r.json() : null)
+        .then(d => {
+          if (!isCancelled && d?.forecast) {
+            setForecast(d.forecast);
+          }
+        })
+        .catch(() => {});
+    }
     const poll = setInterval(pollForecast, 60_000);
     return () => {
+      isCancelled = true;
       clearTimeout(reconnectTimer.current);
       clearInterval(poll);
       esRef.current?.close();
     };
-  }, [connect, pollForecast]);
+  }, [connect, pollForecast, residentId]);
 
   return { snapshot, alerts, schedule, forecast, connected, backendOnline, lastUpdated, streamError };
 }

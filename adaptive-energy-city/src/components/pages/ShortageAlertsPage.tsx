@@ -2,14 +2,6 @@
 import React from 'react';
 import { useSimStore } from '../../store/simStore';
 
-const SEVERITY_COLOR: Record<string, string> = {
-  overloaded: '#dc2626',
-  warning:    '#d97706',
-  normal:     '#16a34a',
-  solar:      '#2563eb',
-  inactive:   '#6b7280',
-};
-
 export default function ShortageAlertsPage() {
   const buildings      = useSimStore(s => s.buildings);
   const result         = useSimStore(s => s.schedulingResult);

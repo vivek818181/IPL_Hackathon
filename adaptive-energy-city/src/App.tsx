@@ -76,9 +76,7 @@ export default function App() {
   };
 
   // Also exit focus mode if selectedBuildingId gets cleared externally
-  useEffect(() => {
-    if (!selectedBuildingId) setFocusMode(false);
-  }, [selectedBuildingId]);
+  const isFocusMode = focusMode && Boolean(selectedBuildingId);
 
   const current = slots[currentSlot];
 
@@ -225,12 +223,12 @@ export default function App() {
         <div className="center-col">
 
           {/* ── BUILDING FOCUS MODE ── */}
-          {activeNav === 'overview' && focusMode && selectedBuildingId && (
+          {activeNav === 'overview' && isFocusMode && (
             <BuildingFocusView onBack={handleBackToCity} />
           )}
 
           {/* ── CITY OVERVIEW (normal mode) ── */}
-          {activeNav === 'overview' && !focusMode && (
+          {activeNav === 'overview' && !isFocusMode && (
             <>
               <div className="city-container">
                 <div className="map-hint">

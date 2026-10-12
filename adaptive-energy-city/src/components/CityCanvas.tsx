@@ -343,7 +343,7 @@ function RooftopDetails({
 
 // ─── Building Label ───────────────────────────────────────────────────────────
 function BuildingLabel({
-  name, h, w, d, status, selected,
+  name, h, w, d: _d, status, selected,
 }: {
   name: string; h: number; w: number; d: number;
   status: string; selected: boolean;
@@ -637,7 +637,7 @@ function CityGround() {
       ts.push([-1.65, zi, 0.75 + rng() * 0.25]);
     }
     return ts;
-  }, []);
+  }, [rng]);
 
   const lightPos: Array<[number, number]> = [
     [-1.1,-4],[-1.1,-7],[-1.1,4],[-1.1,7],

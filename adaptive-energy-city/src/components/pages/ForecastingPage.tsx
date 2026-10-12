@@ -7,7 +7,7 @@
  */
 import React, { useState } from 'react';
 import {
-  AreaChart, Area, BarChart, Bar, LineChart, Line,
+  AreaChart, Area, BarChart, Bar, Line,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, ReferenceLine, Cell,
 } from 'recharts';
@@ -161,7 +161,7 @@ export default function ForecastingPage() {
     setTraining(true);
     setTrainMsg('Training… this may take 30–90 seconds.');
     try {
-      const r = await trainModels();
+      await trainModels();
       setTrainMsg('Training complete! Refreshing data…');
     } catch {
       setTrainMsg('Training failed. Check that backend is running.');

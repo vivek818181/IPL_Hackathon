@@ -2,7 +2,7 @@
  * Basic tests for Adaptive Energy City scheduling engine.
  * Run with: npx vitest run
  */
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { generateBaseSlots } from '../data/cityData';
 import {
   activeDemandAt,

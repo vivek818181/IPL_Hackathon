@@ -20,12 +20,6 @@ function CustomTooltip({ active, payload, label }: any) {
 export default function ReportsPage() {
   const result         = useSimStore(s => s.schedulingResult);
   const buildings      = useSimStore(s => s.buildings);
-  const slots          = useSimStore(s => s.slots);
-  const currentSlot   = useSimStore(s => s.currentSlot);
-  const gridCapacityKW = useSimStore(s => s.gridCapacityKW);
-  const solarDropFactor = useSimStore(s => s.solarDropFactor);
-
-  const current = slots[currentSlot];
 
   const buildingReport = buildings.map(b => {
     const runningKW = b.baseDemandKW + b.devices.filter(d => d.status === 'running').reduce((a, d) => a + d.powerKW, 0);

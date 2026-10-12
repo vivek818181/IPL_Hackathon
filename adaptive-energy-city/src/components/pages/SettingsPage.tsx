@@ -36,9 +36,7 @@ export default function SettingsPage() {
               type="range" min={100} max={600} step={20} value={gridCapacityKW}
               className="setting-slider"
               onChange={e => {
-                const s = useSimStore.getState();
-                const patch = { ...s, gridCapacityKW: +e.target.value };
-                useSimStore.getState().triggerEvent('restore_normal');
+                useSimStore.setState({ gridCapacityKW: +e.target.value });
               }}
             />
             <div className="setting-hint">Max power the grid feeder can supply to the district.</div>

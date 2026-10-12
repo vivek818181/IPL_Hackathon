@@ -7,7 +7,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import {
-  AreaChart, Area, LineChart, Line,
+  AreaChart, Area, Line,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import { useSimStore } from '../store/simStore';
@@ -29,12 +29,6 @@ function seededColor(id: string) {
   const s = id.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
   return BUILDING_PALETTE[s % BUILDING_PALETTE.length];
 }
-const PRIORITY_COLOR: Record<string, string> = {
-  critical:   '#dc2626',
-  high:       '#d97706',
-  flexible:   '#2563eb',
-  deferrable: '#6b7280',
-};
 function slotTime(s: number) {
   const m = s * 15;
   return `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
@@ -174,7 +168,6 @@ export default function BuildingFocusView({ onBack }: { onBack: () => void }) {
   const result     = useSimStore(s => s.schedulingResult);
   const slots      = useSimStore(s => s.slots);
   const currentSlot = useSimStore(s => s.currentSlot);
-  const gridCapacityKW = useSimStore(s => s.gridCapacityKW);
   const selectBuilding = useSimStore(s => s.selectBuilding);
 
   const building = buildings.find(b => b.id === selectedId);

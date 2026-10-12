@@ -8,9 +8,9 @@
  * Data isolation is enforced by the backend — each resident_id
  * maps to exactly one building_id.
  */
-import React, { useState, useEffect, useId } from 'react';
+import React, { useState } from 'react';
 import {
-  AreaChart, Area, BarChart, Bar, LineChart, Line,
+  AreaChart, Area, BarChart, Bar, Line,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, ReferenceLine, Cell,
 } from 'recharts';

@@ -125,9 +125,16 @@ export function useForecast(buildingId: string) {
   }, [buildingId]);
 
   useEffect(() => {
-    fetchAll();
+    let isCancelled = false;
+    const initTimer = setTimeout(() => {
+      if (!isCancelled) void fetchAll();
+    }, 0);
     timerRef.current = setInterval(fetchAll, POLL_MS);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    return () => {
+      isCancelled = true;
+      clearTimeout(initTimer);
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
   }, [fetchAll]);
 
   // Trigger dataset generation

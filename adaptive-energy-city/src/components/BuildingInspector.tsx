@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSimStore } from '../store/simStore';
-import type { Building } from '../types/energy';
 
 const PRIORITY_COLORS: Record<string, string> = {
   critical: '#ef4444',

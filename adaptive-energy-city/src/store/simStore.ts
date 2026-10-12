@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { SimulationState, Building, SimulationEvent, TimeSlot } from '../types/energy';
+import type { SimulationState, Building, SimulationEvent } from '../types/energy';
 import { INITIAL_BUILDINGS, generateBaseSlots } from '../data/cityData';
 import { runScheduler, computeSlots, activeDemandAt, solarAt } from '../engine/scheduler';
 
